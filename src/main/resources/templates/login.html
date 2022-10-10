@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form method="post" action="/process_login" >
+  <label for="username">username : </label>
+  <input type="text" name="username" id="username">
+
+  <label for="password">password : </label>
+  <input type="text" name="password" id="password">
+
+  <input type="submit" value="login" />
+
+  <div th:if="${param.error}" style="color: red;">
+    yalnis ad ve ya sifre daxil etmisiniz.
+  </div>
+
+</form>
+</body>
+</html>
