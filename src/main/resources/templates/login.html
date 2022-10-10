@@ -9,11 +9,14 @@
 <form method="post" action="/process_login" >
   <label for="username">username : </label>
   <input type="text" name="username" id="username">
+    <br>
 
   <label for="password">password : </label>
   <input type="text" name="password" id="password">
-
-  <input type="submit" value="login" />
+    <br>
+  <input type="submit" value="Sign in" />
+    <br>
+    <input type="button" value="Sign up" th:href="">
 
   <div th:if="${param.error}" style="color: red;">
     yalnis ad ve ya sifre daxil etmisiniz.
