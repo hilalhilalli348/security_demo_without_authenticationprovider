@@ -1,31 +1,34 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
 
-    <form th:method="post" th:action="@{/auth/register}" th:object="${person}" >
-        <label for="username">username</label>
-        <input type="text" name="username" id="username" th:field="*{userName}">
-        <div style="color: red;" th:errors="*{userName}"  th:if="${#fields.hasErrors('userName')}" >
-            username not correct
-        </div>
+<form action="#" th:action="@{/auth/register}" method="post" th:object="${person}">
 
-        <label for="yearOfBirth">username</label>
-        <input type="date" name="yearOfBirth" id="yearOfBirth" th:field="*{yearOfBirth}">
-        <div style="color: red;" th:errors="*{yearOfBirth}"  th:if="${#fields.hasErrors('yearOfBirth')}" >
-            year of birth day not correct
-        </div>
+    username
+    <input type="text" th:field="*{userName}">
+    <br>
+    <div style="color: red;" th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}"/>
+    <br>
+    year of birthday
+    <input type="text" id="yearOfBirth" th:field="*{yearOfBirth}">
+    <br>
+    <div style="color: red;" th:if="${#fields.hasErrors('yearOfBirth')}" th:errors="*{yearOfBirth}"/>
+    <br>
+    password
+    <input type="password" th:field="*{password}">
+    <br>
+    <div style="color: red;" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"/>
 
-        <label for="password">username</label>
-        <input type="password" name="password" id="password" th:field="*{password}">
-        <div style="color: red;" th:errors="*{password}"  th:if="${#fields.hasErrors('password')}" >
-            password not correct format
-        </div>
+    <button type="submit">Register</button>
 
-        <input type="submit" value="sign up" />
-    </form>
+
+</form>
 </body>
 </html>
+
+
+

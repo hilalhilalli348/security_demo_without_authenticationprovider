@@ -2,6 +2,7 @@ package com.security.securitylession.controller;
 
 import com.security.securitylession.entity.Person;
 import com.security.securitylession.services.RegistrationPersonService;
+import com.security.securitylession.utilities.PersonValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,10 +19,11 @@ import javax.validation.Valid;
 public class AuthController {
 
     private RegistrationPersonService registrationPersonService;
-
+    private PersonValidator personValidator;
     @Autowired
-    public AuthController(RegistrationPersonService registrationPersonService) {
+    public AuthController(RegistrationPersonService registrationPersonService,PersonValidator personValidator) {
         this.registrationPersonService = registrationPersonService;
+        this.personValidator = personValidator;
     }
 
     @GetMapping("/login-page")
@@ -31,17 +33,34 @@ public class AuthController {
     }
 
     @GetMapping("/register")
-    public String getRegister(@ModelAttribute("person") Person person) {
-
+    public String getRegister(Model model) {
+        model.addAttribute("person",new Person());
         return "register";
     }
 
 
+    // burada @Valid edende ,entiti-de yazilan annotationlardaki sertler odenmeyende
+    // o xetalar dusur bindingResult-e,eyni zamanda biz Validator ile bindingResult-a yene xetalar
+    // elave edirik.yeni butun xetalar personla bagli onun icinde saxlanir,saxlayiriq.
+    // ve biz xetalari gormek ucun artiq bindingResult-a baxmaliyiq.
     @PostMapping("/register")
-    public String registerPerson(@ModelAttribute("person") Person person) {
+    public String registerPerson(@Valid @ModelAttribute("person") Person person
+            ,BindingResult bindingResult) {
 
-            registrationPersonService.register(person);
+        // validation-da xeta olarsa o xetalr bindingResult-da saxlanacaq.
+        personValidator.validate(person,bindingResult);
 
+        // xeta olarsa yeniden register page-ine yoneltsin
+        // orda xeta mesajin gore bilerik.
+        // xeta mesajin gormek ucun thymeleaf-de mutleq fields.hasErrors('errorName') yazilmalidir.
+        // errorName - bizim error keyleridir.adeten Person-in fieldlari ile eyni adli olurlar.
+        if (bindingResult.hasErrors())
+            return "register";
+
+
+        registrationPersonService.register(person);
+
+        // bindingResult-i f
         return "redirect:/auth/login-page";
     }
 

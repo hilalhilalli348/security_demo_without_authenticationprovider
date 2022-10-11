@@ -10,4 +10,7 @@ import java.util.Optional;
 public interface PersonRepository  extends JpaRepository<Person,Integer> {
     // optional o demekdir ki nullda ola biler person.
     Optional<Person> findByUserName(String name);
+
+    
+
 }

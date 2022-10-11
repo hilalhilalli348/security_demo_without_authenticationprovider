@@ -1,10 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
 hello world
+// a ilede yaza bilerik.
+// logout olanda serverdeki session silinir
+// browserda ise qalir,sisteme girende yenisi yaranir yeni jsessionid ile.
+
+<form th:action="@{/logout}"  th:method="post">
+    <input type="submit" value="logout"/>
+</form>
+
 </body>
 </html>
